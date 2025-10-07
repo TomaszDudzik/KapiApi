@@ -27,7 +27,7 @@ jobs:
           cache: 'pip'
 
       - name: Install dependencies
-        run: pip install -r backend/upload/requirements.txt
+        run: pip install -r backend/requirements.txt
 
       - name: Run script
         run: python backend/upload/currency.py
