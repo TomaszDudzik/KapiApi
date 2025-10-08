@@ -4,17 +4,30 @@ import sys
 import pandas as pd
 from sqlalchemy import create_engine, text
 from datetime import datetime, timezone
+from sqlalchemy.pool import NullPool
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from download.get_currency import get_nbp_rates
 
+# Your values (see Supabase "Connect" panel)
+DB_USER = "postgres"                 # db user
+PROJECT_REF = "ybdhjrrndwvoudrkvyjm"
+DB_PASS = "kkB8K64!r-.bGm6"   # see note below
+REGION = "eu-north-1"              # e.g. eu-central-1
+
+POOLER_TXN_DSN = (
+    f"postgresql+psycopg2://{DB_USER}.{PROJECT_REF}:{DB_PASS}"
+    f"@aws-1-{REGION}.pooler.supabase.com:6543/postgres"
+)
+
+engine = create_engine(POOLER_TXN_DSN, poolclass=NullPool)
 #ipv4 = socket.gethostbyname("db.ybdhjrrndwvoudrkvyjm.supabase.co") 
 
 # Connection string (from Supabase > Database > Connection string)
-DB_URL = "postgresql://postgres:kkB8K64!r-.bGm6@db.ybdhjrrndwvoudrkvyjm.supabase.co:5432/postgres?sslmode=require"
+#DB_URL = "postgresql://postgres:kkB8K64!r-.bGm6@db.ybdhjrrndwvoudrkvyjm.supabase.co:5432/postgres?sslmode=require"
 
 # Create SQLAlchemy engine
-engine = create_engine(DB_URL, pool_pre_ping=True)
+#engine = create_engine(DB_URL, pool_pre_ping=True)
 
 # Fetch currency data
 df_nbp_rates = get_nbp_rates()
