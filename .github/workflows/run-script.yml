@@ -8,6 +8,10 @@ on:
     - cron: '20 20 * * *'   # 07:00 during CET  (UTC+1)
   workflow_dispatch:       # lets you run it manually from the Actions tab
 
+concurrency:
+  group: supabase-cron
+  cancel-in-progress: false
+
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -27,7 +31,9 @@ jobs:
           cache: 'pip'
 
       - name: Install dependencies
-        run: pip install -r backend/requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
       - name: Run script
         run: python backend/upload/currency.py
