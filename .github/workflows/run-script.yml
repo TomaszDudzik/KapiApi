@@ -4,8 +4,8 @@ on:
   # GitHub cron is in UTC. Two lines below run at 07:00 Europe/Warsaw year-round
   # by covering both DST states (UTC+1 and UTC+2):
   schedule:
-    - cron: '20 19 * * *'   # 07:00 during CEST (UTC+2)
-    - cron: '20 20 * * *'   # 07:00 during CET  (UTC+1)
+  - cron: '10 18 * * 1-5'
+  - cron: '10 19 * * 1-5'
   workflow_dispatch:       # lets you run it manually from the Actions tab
 
 concurrency:
