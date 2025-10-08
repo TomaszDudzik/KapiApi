@@ -2,7 +2,7 @@ import requests
 import pandas as pd
 
 # URL to fetch currency rates from NBP API
-URL = "https://api.nbp.pl/api/exchangerates/tables/A/2025-10-02/?format=json"
+URL = "https://api.nbp.pl/api/exchangerates/tables/A/2025-10-01/?format=json"
 
 def get_nbp_rates():
     """
