@@ -8,7 +8,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from download.get_currency import get_nbp_rates
 
 # Connection string (from Supabase > Database > Connection string)
-DB_URL = "postgresql://postgres:kkB8K64!r-.bGm6@db.ybdhjrrndwvoudrkvyjm.supabase.co:5432/POSTGRESDB?sslmode=require"
+DB_URL = "postgresql://postgres:kkB8K64!r-.bGm6@db.ybdhjrrndwvoudrkvyjm.supabase.co:5432/POSTGRESDB?sslmode=require&hostaddr={ipv4}"
 
 # Create SQLAlchemy engine
 engine = create_engine(DB_URL)
