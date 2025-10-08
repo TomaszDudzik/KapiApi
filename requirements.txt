@@ -6,3 +6,4 @@ pytz
 pandas==2.2.2
 requests==2.32.3
 supabase>=2.5,<3.0
+sqlalchemy==2.0.20
