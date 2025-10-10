@@ -24,7 +24,7 @@ engine = create_engine(POOLER_TXN_DSN, poolclass=NullPool)
 # Fetch currency data
 df_nbp_rates = get_nbp_rates()
 
-query = text("SELECT as_of_date, currency_ticker FROM currency")
+query = text("SELECT currency_date, currency_ticker FROM currency")
 
 # Fetch existing data to avoid duplicates
 with engine.connect() as conn:
@@ -32,8 +32,8 @@ with engine.connect() as conn:
     df_existing_data = pd.DataFrame(df_existing_data)
 
 # Check for new data
-df_existing_data['key'] = df_existing_data['as_of_date'].astype(str) + "_" + df_existing_data['currency_ticker']    
-df_nbp_rates['key'] = df_nbp_rates['as_of_date'].astype(str) + "_" + df_nbp_rates['currency_ticker']
+df_existing_data['key'] = df_existing_data['currency_date'].astype(str) + "_" + df_existing_data['currency_ticker']    
+df_nbp_rates['key'] = df_nbp_rates['currency_date'].astype(str) + "_" + df_nbp_rates['currency_ticker']
 new_data = df_nbp_rates[~df_nbp_rates['key'].isin(df_existing_data['key'])].drop(columns=['key'])
 
 

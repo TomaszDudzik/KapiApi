@@ -32,14 +32,14 @@ def get_nbp_rates():
 
         # Select columns and rename for clarity
         df = df[['currency', 'code', 'mid', 'effectiveDate']]
-        df.columns = ['currency_name', 'currency_ticker', 'currency_value', 'as_of_date']
+        df.columns = ['currency_name', 'currency_ticker', 'currency_value', 'currency_date']
         
         # Convert data types
-        df['as_of_date'] = pd.to_datetime(df['as_of_date']).dt.strftime("%Y-%m-%d")
+        df['currency_date'] = pd.to_datetime(df['currency_date']).dt.strftime("%Y-%m-%d")
         df['currency_value'] = df['currency_value'].astype(float)
 
         # Reorder columns
-        df = df[['as_of_date', 'currency_ticker', 'currency_value', 'currency_name']]
+        df = df[['currency_date', 'currency_ticker', 'currency_value', 'currency_name']]
 
         return df
 
