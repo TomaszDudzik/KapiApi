@@ -20,6 +20,7 @@ def get_nbp_rates():
 
     # NBP API endpoint for exchange rates
     url = f"https://api.nbp.pl/api/exchangerates/tables/A/{yesterday_date}/?format=json"
+    #url = f"https://api.nbp.pl/api/exchangerates/tables/A/2025-10-08/?format=json"
     
     try:
         response = requests.get(url, timeout=10)
@@ -40,6 +41,9 @@ def get_nbp_rates():
 
         # Reorder columns
         df = df[['currency_date', 'currency_ticker', 'currency_value', 'currency_name']]
+
+        # Add key column for deduplication
+        df['currency_id'] = df['currency_ticker'] + "_" + df['currency_date'].astype(str)
 
         return df
 
