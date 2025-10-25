@@ -35,6 +35,8 @@ with engine.connect() as conn:
 df_nbp_rates['rate_date_base_ccy'] = df_nbp_rates['rate_date'] + df_nbp_rates['base_ccy']
 new_data = df_nbp_rates[~df_nbp_rates['rate_date_base_ccy'].isin(df_existing_data['rate_date_base_ccy'])]
 
+new_data.drop(columns='rate_date_base_ccy', inplace=True)
+
 if new_data.empty:
     print("No new data to load.")
     sys.exit(0)

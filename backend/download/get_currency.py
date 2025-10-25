@@ -39,11 +39,11 @@ def get_nbp_rates():
         df['rate_date'] = pd.to_datetime(df['rate_date']).dt.strftime("%Y-%m-%d")
         df['rate_close'] = df['rate_close'].astype(float)
 
-        # Reorder columns
-        df = df[['rate_date', 'base_ccy', 'rate_close']]
-
-        # Add key column for deduplication
+        # Create new column
         df['quate_ccy'] = 'PLN'
+
+        # Reorder columns
+        df = df[['base_ccy', 'rate_date', 'quate_ccy', 'rate_close']]
 
         return df
 
