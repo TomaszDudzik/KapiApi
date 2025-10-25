@@ -24,7 +24,7 @@ engine = create_engine(POOLER_TXN_DSN, poolclass=NullPool)
 # Fetch currency data
 df_nbp_rates = get_nbp_rates()
 
-query = text("SELECT currency_id FROM currency")
+query = text("SELECT rate_date || base_ccy AS rate_date_base_ccy FROM fx_rates")
 
 # Fetch existing data to avoid duplicates
 with engine.connect() as conn:
@@ -32,7 +32,8 @@ with engine.connect() as conn:
     df_existing_data = pd.DataFrame(df_existing_data)
 
 # Check for new data
-new_data = df_nbp_rates[~df_nbp_rates['currency_id'].isin(df_existing_data['currency_id'])]
+df_nbp_rates['rate_date_base_ccy'] = df_nbp_rates['rate_date'] + df_nbp_rates['base_ccy']
+new_data = df_nbp_rates[~df_nbp_rates['rate_date_base_ccy'].isin(df_existing_data['rate_date_base_ccy'])]
 
 if new_data.empty:
     print("No new data to load.")
@@ -42,7 +43,7 @@ print(f"Loading {len(new_data)} new rows...")
 
 # Load DataFrame to the table
 new_data.to_sql(
-    name="currency",
+    name="fx_rates",
     con=engine,
     schema="public",
     if_exists="append",
