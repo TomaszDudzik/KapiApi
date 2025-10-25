@@ -32,18 +32,18 @@ def get_nbp_rates():
         df['effectiveDate'] = data['effectiveDate']
 
         # Select columns and rename for clarity
-        df = df[['currency', 'code', 'mid', 'effectiveDate']]
-        df.columns = ['currency_name', 'currency_ticker', 'currency_value', 'currency_date']
+        df = df[['code', 'mid', 'effectiveDate']]
+        df.columns = ['base_ccy', 'rate_close', 'rate_date']
         
         # Convert data types
-        df['currency_date'] = pd.to_datetime(df['currency_date']).dt.strftime("%Y-%m-%d")
-        df['currency_value'] = df['currency_value'].astype(float)
+        df['rate_date'] = pd.to_datetime(df['rate_date']).dt.strftime("%Y-%m-%d")
+        df['rate_close'] = df['rate_close'].astype(float)
 
         # Reorder columns
-        df = df[['currency_date', 'currency_ticker', 'currency_value', 'currency_name']]
+        df = df[['rate_date', 'base_ccy', 'rate_close']]
 
         # Add key column for deduplication
-        df['currency_id'] = df['currency_ticker'] + "_" + df['currency_date'].astype(str)
+        df['quate_ccy'] = 'PLN'
 
         return df
 
