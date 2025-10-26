@@ -19,8 +19,8 @@ def get_nbp_rates():
     yesterday_date = (datetime.now().date() - timedelta(days=1)).strftime("%Y-%m-%d")
 
     # NBP API endpoint for exchange rates
-    url = f"https://api.nbp.pl/api/exchangerates/tables/A/{yesterday_date}/?format=json"
-    #url = f"https://api.nbp.pl/api/exchangerates/tables/A/2025-10-08/?format=json"
+    #url = f"https://api.nbp.pl/api/exchangerates/tables/A/{yesterday_date}/?format=json"
+    url = f"https://api.nbp.pl/api/exchangerates/tables/A/2025-10-24/?format=json"
     
     try:
         response = requests.get(url, timeout=10)
@@ -40,10 +40,10 @@ def get_nbp_rates():
         df['rate_close'] = df['rate_close'].astype(float)
 
         # Create new column
-        df['quate_ccy'] = 'PLN'
+        df['quote_ccy'] = 'PLN'
 
         # Reorder columns
-        df = df[['base_ccy', 'rate_date', 'quate_ccy', 'rate_close']]
+        df = df[['base_ccy', 'rate_date', 'quote_ccy', 'rate_close']]
 
         return df
 
