@@ -19,8 +19,8 @@ def get_nbp_rates():
     yesterday_date = (datetime.now().date() - timedelta(days=1)).strftime("%Y-%m-%d")
 
     # NBP API endpoint for exchange rates
-    #url = f"https://api.nbp.pl/api/exchangerates/tables/A/{yesterday_date}/?format=json"
-    url = f"https://api.nbp.pl/api/exchangerates/tables/A/2025-10-24/?format=json"
+    url = f"https://api.nbp.pl/api/exchangerates/tables/A/{yesterday_date}/?format=json"
+    #url = f"https://api.nbp.pl/api/exchangerates/tables/A/2025-10-27/?format=json"
     
     try:
         response = requests.get(url, timeout=10)
